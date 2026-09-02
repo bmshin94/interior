@@ -44,4 +44,4 @@ bun install
 bun run dev
 ```
 
-The design language behind every decision lives in [DESIGN.md](DESIGN.md).
+The design language behind every decision lives in DESIGN.md.

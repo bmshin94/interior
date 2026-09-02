@@ -1,6 +1,6 @@
 # Contributing
 
-Read [DESIGN.md](DESIGN.md) first. It is the source of truth; nothing lands
+Read DESIGN.md first. It is the source of truth; nothing lands
 that contradicts it.
 
 ## A component is two files and one registry entry
