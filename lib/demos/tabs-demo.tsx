@@ -36,7 +36,7 @@ export function TabsDemo() {
         label="Workspace sections"
         panelClassName="mt-3"
         renderPanel={(value) => (
-          <div className="flex h-[86px] flex-col justify-center rounded-[11px] bg-sub px-3.5">
+          <div className="flex h-[86px] flex-col justify-center px-3.5">
             <p className="text-[13px] font-medium text-ink">{panels[value].title}</p>
             {panels[value].lines.map((line) => (
               <p key={line} className="mt-1 text-[12.5px] text-ink-2">

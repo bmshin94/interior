@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Launcher } from "@/components/site/launcher";
@@ -86,7 +87,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script id="interior-theme" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="alternate" type="text/plain" href={`${SITE}/llms.txt`} title="LLM reference" />
         <noscript>
           <style>{`.docs-enter { opacity: 1 !important; transform: none !important; filter: none !important; }`}</style>
