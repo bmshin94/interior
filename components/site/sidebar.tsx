@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { CaretRightIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { categories, getCategoryOf, type Entry } from "@/lib/registry";
 import { Logo } from "./logo";
@@ -147,35 +147,27 @@ export function Sidebar() {
                 </span>
                 <Strip entries={cat.entries} activeSlug={slug} />
               </button>
-              <AnimatePresence initial={false}>
-                {expanded && (
-                  <motion.div
-                    key="body"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={
-                      reduce
-                        ? { duration: 0 }
-                        : {
-                            height: { duration: 0.28, ease: EASE },
-                            opacity: { duration: 0.18, ease: EASE },
-                          }
-                    }
-                    className="overflow-hidden"
-                  >
-                    <ul className="pb-1.5">
-                      {cat.entries.map((e) => (
-                        <Row
-                          key={e.slug}
-                          entry={e}
-                          active={slug === e.slug}
-                        />
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <motion.div
+                initial={false}
+                animate={expanded ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+                inert={!expanded}
+                aria-hidden={!expanded}
+                transition={
+                  reduce
+                    ? { duration: 0 }
+                    : {
+                        height: { duration: 0.28, ease: EASE },
+                        opacity: { duration: 0.18, ease: EASE },
+                      }
+                }
+                className="overflow-hidden"
+              >
+                <ul className="pb-1.5">
+                  {cat.entries.map((e) => (
+                    <Row key={e.slug} entry={e} active={slug === e.slug} />
+                  ))}
+                </ul>
+              </motion.div>
             </section>
           );
         })}

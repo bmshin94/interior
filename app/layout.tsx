@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Launcher } from "@/components/site/launcher";
-import { DESCRIPTION, SITE, TITLE } from "@/lib/site";
+import { SEO_DESCRIPTION, SEO_TITLE, SITE, SOCIAL_IMAGE } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,14 +26,21 @@ export const metadata: Metadata = {
   // without this, Next emits a relative og:image and no crawler can resolve it
   metadataBase: new URL(SITE),
   title: {
-    default: TITLE,
+    default: SEO_TITLE,
     template: "%s — interior.dev",
   },
-  description: DESCRIPTION,
+  description: SEO_DESCRIPTION,
   applicationName: "interior.dev",
   keywords: [
     "micro-interactions",
     "react components",
+    "animated react components",
+    "react micro-interactions",
+    "free react components",
+    "open source react component library",
+    "copy paste react components",
+    "react animation components",
+    "tailwind react components",
     "motion",
     "framer motion",
     "tailwind css",
@@ -46,14 +53,16 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE,
     siteName: "interior.dev",
-    title: TITLE,
-    description: DESCRIPTION,
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
     locale: "en_US",
+    images: [SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
+    images: [SOCIAL_IMAGE.url],
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
   },
   robots: {
     index: true,
@@ -78,6 +87,10 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link rel="alternate" type="text/plain" href={`${SITE}/llms.txt`} title="LLM reference" />
+        <noscript>
+          <style>{`.docs-enter { opacity: 1 !important; transform: none !important; filter: none !important; }`}</style>
+        </noscript>
       </head>
       <body className="min-h-full flex flex-col">
         {children}

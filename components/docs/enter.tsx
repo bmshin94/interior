@@ -18,7 +18,7 @@ export function Enter({
 
   return (
     <motion.div
-      className={className}
+      className={`docs-enter ${className}`}
       initial={
         reduce ? { opacity: 0 } : { opacity: 0, y: 10, filter: "blur(5px)" }
       }

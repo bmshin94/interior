@@ -1,10 +1,25 @@
 import Link from "next/link";
 import { categories } from "@/lib/registry";
+import { SITE, SOCIAL_IMAGE } from "@/lib/site";
 
 export const metadata = {
-  title: "Why this exists",
+  title: "React Micro-Interaction Components",
+  alternates: { canonical: "/docs" },
   description:
-    "every team builds these. nobody agrees on how. this is the argument for one way.",
+    "Explore free React micro-interaction components, live demos, TypeScript source and installation instructions. Learn the design principles behind interior.dev.",
+  openGraph: {
+    type: "website",
+    url: `${SITE}/docs`,
+    title: "React Micro-Interaction Components — interior.dev",
+    description: "Explore the components and the design principles behind interior.dev.",
+    images: [SOCIAL_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "React Micro-Interaction Components — interior.dev",
+    description: "Explore the components and the design principles behind interior.dev.",
+    images: [SOCIAL_IMAGE.url],
+  },
 };
 
 const failures = [

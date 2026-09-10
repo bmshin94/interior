@@ -1,5 +1,5 @@
 import { categories } from "@/lib/registry";
-import { DESCRIPTION, GITHUB, SITE } from "@/lib/site";
+import { SEO_DESCRIPTION, GITHUB, SITE } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -10,7 +10,7 @@ export function GET() {
         .filter((entry) => entry.status === "ready")
         .map(
           (entry) =>
-            `- [${entry.name}](${SITE}/docs/${entry.slug}): ${entry.blurb}`,
+            `- [${entry.name}](${SITE}/docs/${entry.slug}): ${entry.blurb}. [Plain-text reference](${SITE}/reference/${entry.slug})`,
         )
         .join("\n");
       return rows ? `## ${category.name}\n\n${rows}` : null;
@@ -21,7 +21,7 @@ export function GET() {
   const body = [
     "# interior.dev",
     "",
-    `> ${DESCRIPTION} A copy-paste library of React micro-interactions: every component is one self-contained file whose only dependency is motion, shipped as a headless hook plus a styled example. No package to install — the file is copied into your codebase and is yours after that.`,
+    `> ${SEO_DESCRIPTION} Components are self-contained files. Most expose a headless hook alongside a styled example; Progress Bar and Segmented Control currently export the component only. React is required, Motion is the additional runtime dependency, and the styled examples use Tailwind CSS.`,
     "",
     `- Source code: ${GITHUB}`,
     `- Full documentation with component source: ${SITE}/llms-full.txt`,

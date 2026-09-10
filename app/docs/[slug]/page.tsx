@@ -7,7 +7,7 @@ import { Preview } from "@/components/docs/preview";
 import { CodeBlock } from "@/components/docs/code-block";
 import { bleedDemos, demos } from "@/lib/demos";
 import { getCategoryOf, getEntry, readyEntries } from "@/lib/registry";
-import { GITHUB, SITE } from "@/lib/site";
+import { GITHUB, SITE, SOCIAL_IMAGE } from "@/lib/site";
 
 export function generateStaticParams() {
   return readyEntries.map((e) => ({ slug: e.slug }));
@@ -20,22 +20,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const entry = getEntry(slug);
-  if (!entry) return {};
+  if (!entry || entry.status !== "ready") return {};
+  const title = `React ${entry.name}`;
+  const description = `${entry.blurb}. Free React ${entry.name.toLowerCase()} component with TypeScript source, a live demo and shadcn CLI installation.`;
   return {
-    title: entry.name,
-    description: entry.blurb,
-    alternates: { canonical: `/docs/${slug}` },
+    title,
+    description,
+    alternates: {
+      canonical: `/docs/${slug}`,
+      types: { "text/plain": `${SITE}/reference/${slug}` },
+    },
     openGraph: {
       type: "article",
       url: `${SITE}/docs/${slug}`,
-      title: entry.name,
-      description: entry.blurb,
+      title,
+      description,
       siteName: "interior.dev",
+      images: [SOCIAL_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
-      title: entry.name,
-      description: entry.blurb,
+      images: [SOCIAL_IMAGE.url],
+      title,
+      description,
     },
   };
 }
@@ -61,21 +68,33 @@ export default async function SheetPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
+    "@id": `${SITE}/docs/${slug}#source`,
     name: entry.name,
     description: entry.blurb,
     url: `${SITE}/docs/${slug}`,
     codeRepository: GITHUB,
+    license: `${GITHUB}/blob/main/LICENSE`,
     programmingLanguage: "TypeScript",
     runtimePlatform: "React",
     isAccessibleForFree: true,
-    isPartOf: { "@type": "WebSite", name: "interior.dev", url: SITE },
+    isPartOf: { "@type": "WebSite", "@id": `${SITE}/#website`, name: "interior.dev", url: SITE },
+  };
+
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "interior.dev", item: SITE },
+      { "@type": "ListItem", position: 2, name: "Components", item: `${SITE}/docs` },
+      { "@type": "ListItem", position: 3, name: entry.name, item: `${SITE}/docs/${slug}` },
+    ],
   };
 
   return (
     <article className="mx-auto max-w-[740px] px-6 pb-24 pt-11 sm:px-10">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, breadcrumbs]).replace(/</g, "\\u003c") }}
       />
       <Enter>
         <header>
@@ -172,9 +191,12 @@ export default async function SheetPage({
   );
 }
 
-function H2({ children }: { children: React.ReactNode }) {
+function H2({ children }: { children: string }) {
   return (
-    <h2 className="mb-3 mt-12 text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">
+    <h2
+      id={children.toLowerCase().replace(/\s+/g, "-")}
+      className="mb-3 mt-12 text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3"
+    >
       {children}
     </h2>
   );
