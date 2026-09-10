@@ -48,3 +48,22 @@ export const testimonials = [
     avatarSource: "https://pbs.twimg.com/profile_images/2004616282079887360/Cup1BQJR_normal.jpg",
   },
 ] as const;
+
+// Verbatim short reactions/excerpts from the supplied launch replies.
+// Handles retain provenance without displaying names or avatars.
+export const reactions = [
+  { handle: "johnbuildss", quote: "tbh this pure gold!" },
+  { handle: "zohairx2", quote: "Such a clean design it is." },
+  { handle: "khairnabin", quote: "time to bookmark" },
+  { handle: "LaireLaFlare", quote: "beaut." },
+  { handle: "prajwalkpatil", quote: "Feels smooth!" },
+  { handle: "kamellperry_", quote: "This is gonna be good" },
+  { handle: "qwrurodhs", quote: "thank you, clear and beautifully work!" },
+  { handle: "Andev_kyn", quote: "Crazy work keep going!🔥" },
+  { handle: "EgorSelivanov", quote: "Amazing work!" },
+  { handle: "rakibprodev", quote: "nice, you just got a follow!" },
+  { handle: "koushik406", quote: "looks good" },
+  { handle: "thedvlpr", quote: "This looks really nice." },
+  { handle: "tarun_soni_", quote: "Good stuff" },
+  { handle: "PierreHenryBap", quote: "Looks nice." },
+] as const;

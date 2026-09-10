@@ -1,11 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CodeBlock } from "@/components/docs/code-block";
 import { SHIPPED } from "@/lib/registry";
 import { GITHUB, SITE } from "@/lib/site";
-import { LAUNCH_POST, testimonials } from "@/lib/testimonials";
+import { LAUNCH_POST } from "@/lib/testimonials";
 import { LandingDemo, LandingShowcase, type LandingDemoSlug } from "./landing-demo";
 import { Logo } from "./logo";
+import { ReactionWall } from "./reaction-wall";
 
 const selection: { slug: LandingDemoSlug; name: string; note: string }[] = [
   { slug: "loading-button", name: "Loading Button", note: "The label changes. The button stays put." },
@@ -82,24 +82,7 @@ export function LandingSections() {
           </div>
           <a href={LAUNCH_POST} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[12.5px] text-ink-2 hover:text-ink">Read the conversation <Arrow diagonal /></a>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((person) => (
-            <figure key={person.handle} className="mat-panel flex min-w-0 flex-col rounded-[16px] p-[5px]">
-              <blockquote className="mat-well flex-1 rounded-[11px] px-4 py-5 text-[13.5px] leading-[1.7] text-ink-2">
-                <p>“{person.quote}”</p>
-              </blockquote>
-              <figcaption className="px-3 py-3">
-                <a href={`https://x.com/${person.handle}`} target="_blank" rel="noreferrer" className="group inline-flex min-h-11 max-w-full items-center gap-2.5 rounded-[7px]">
-                  <Image src={`/images/people/${person.handle}.jpg`} alt="" width={32} height={32} className="size-8 shrink-0 rounded-[7px] object-cover" />
-                  <span className="min-w-0">
-                    <span className="block text-[12.5px] font-medium leading-relaxed text-ink-2 group-hover:text-ink">{person.name}</span>
-                    <span className="block text-[10.5px] leading-relaxed text-ink-3">@{person.handle}{person.excerpt ? " · excerpt" : ""}</span>
-                  </span>
-                </a>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <ReactionWall />
       </section>
 
       <section aria-labelledby="closing-title" className="landing-divider py-14 sm:py-16">

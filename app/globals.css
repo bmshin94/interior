@@ -321,3 +321,24 @@ html.dark .shiki span {
   border-top: 1px solid var(--hairline);
   pointer-events: none;
 }
+
+.reaction-stream {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.reaction-track {
+  animation: reaction-drift linear infinite;
+  animation-play-state: var(--reaction-play, paused);
+}
+.reaction-stream:hover .reaction-track {
+  animation-play-state: paused;
+}
+@keyframes reaction-drift {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reaction-stream { mask-image: none; }
+  .reaction-track { animation: none; width: auto; }
+  .reaction-group { flex-wrap: wrap; padding-right: 0; }
+  .reaction-repeat { display: none; }
+  .reaction-group p { white-space: normal; height: auto; min-height: 36px; padding-block: 8px; line-height: 1.5; }
+}
